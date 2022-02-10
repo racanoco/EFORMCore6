@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.DataBase;
 
@@ -11,9 +12,10 @@ using Persistence.DataBase;
 namespace Persistence.DataBase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220210111510_AddInitialData")]
+    partial class AddInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,8 +81,6 @@ namespace Persistence.DataBase.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("ClientId");
-
                     b.ToTable("Orders");
                 });
 
@@ -113,10 +113,6 @@ namespace Persistence.DataBase.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderDetailId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -154,44 +150,6 @@ namespace Persistence.DataBase.Migrations
                             Name = "Producto 2",
                             Price = 700
                         });
-                });
-
-            modelBuilder.Entity("Models.Order", b =>
-                {
-                    b.HasOne("Models.Client", "Client")
-                        .WithMany("Orders")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("Models.OrderDetail", b =>
-                {
-                    b.HasOne("Models.Order", "Order")
-                        .WithMany("ItemsOrderDetail")
-                        .HasForeignKey("OrderId");
-
-                    b.HasOne("Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Models.Client", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Models.Order", b =>
-                {
-                    b.Navigation("ItemsOrderDetail");
                 });
 #pragma warning restore 612, 618
         }

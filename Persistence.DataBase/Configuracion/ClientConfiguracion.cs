@@ -12,6 +12,21 @@ namespace Persistence.DataBase.Configuracion
         {
             entityTypeBuilder.Property(x => x.NIF).IsRequired().HasMaxLength(30);
             entityTypeBuilder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+
+            // Código para insertar datos de pruebas.
+            entityTypeBuilder.HasData(
+                new Client
+                {
+                    ClientId = 1,
+                    NIF = "52169902E",
+                    Name = "Emma Cano Martos"
+                },
+                new Client
+                {
+                    ClientId = 2,
+                    NIF = "52169902B",
+                    Name = "Bueno Cano Martos"
+                });
         }
     }
 }

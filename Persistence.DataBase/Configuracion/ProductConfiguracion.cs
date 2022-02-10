@@ -11,6 +11,21 @@ namespace Persistence.DataBase.Configuracion
         public ProductConfiguracion(EntityTypeBuilder<Product> entityTypeBuilder)
         {            
             entityTypeBuilder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+
+            // Código para insertar datos de pruebas.
+            entityTypeBuilder.HasData(
+                new Product
+                {
+                    ProductId = 1,                    
+                    Name = "Producto 1",
+                    Price = 600
+                },
+                new Product
+                {
+                    ProductId = 2,
+                    Name = "Producto 2",
+                    Price = 700
+                });
         }
     }
 }
