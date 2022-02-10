@@ -1,5 +1,4 @@
-﻿
-namespace Models
+﻿namespace Models
 {
     public class Order
     {       
@@ -10,5 +9,6 @@ namespace Models
         public decimal Iva { get; set; }
         public decimal SubTotal { get; set; }   
         public decimal Total { get; set; }
+        public DateTime RegisteredAt { get; set; }
     }
 }

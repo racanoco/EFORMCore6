@@ -22,6 +22,8 @@ namespace Persistence.DataBase
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderNumber> OrderNumbers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,10 +37,12 @@ namespace Persistence.DataBase
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Models configuration or contraints.
-            new ClientConfiguracion(builder.Entity<Client>());
-            new OrderConfiguracion(builder.Entity<Order>());
-            new OrderDetailConfiguracion(builder.Entity<OrderDetail>());
-            new ProductConfiguracion(builder.Entity<Product>());
+            _ = new ClientConfiguracion(builder.Entity<Client>());
+            _ = new OrderConfiguracion(builder.Entity<Order>());
+            _ = new OrderDetailConfiguracion(builder.Entity<OrderDetail>());
+            _ = new ProductConfiguracion(builder.Entity<Product>());
+            _ = new OrderNumberConfiguracion(builder.Entity<OrderNumber>());
+            _ = new SaleConfiguracion(builder.Entity<Sale>());
         }
 
     }
