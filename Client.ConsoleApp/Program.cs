@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common;
+using Microsoft.EntityFrameworkCore;
 using Persistence.DataBase;
 
 namespace Client.ConsoleApp
@@ -8,7 +9,7 @@ namespace Client.ConsoleApp
         static void Main(string[] args)
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionBuilder.UseSqlServer("data source=.\\ANBU;initial catalog=dbEFORMCore6;user id=sa;password=ps015-j;persist security info=True;");
+            optionBuilder.UseSqlServer(Parameter.ConnectionString);
 
             var dbcontext = new ApplicationDbContext(optionBuilder.Options);
             TestConnection(dbcontext);
