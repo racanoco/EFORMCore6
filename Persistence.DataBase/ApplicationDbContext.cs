@@ -25,6 +25,7 @@ namespace Persistence.DataBase
         public DbSet<OrderNumber> OrderNumbers { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,6 +46,7 @@ namespace Persistence.DataBase
             _ = new OrderNumberConfiguracion(builder.Entity<OrderNumber>());
             _ = new SaleConfiguracion(builder.Entity<Sale>());
             _ = new ContryConfiguracion(builder.Entity<Country>());
+            _ = new WarehouseConfiguracion(builder.Entity<Warehouse>());
         }
 
     }

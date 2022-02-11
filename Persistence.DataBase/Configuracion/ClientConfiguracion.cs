@@ -30,7 +30,7 @@ namespace Persistence.DataBase.Configuracion
                 {
                     ClientId = 2,
                     NIF = "52169902B",
-                    Name = "Bueno Cano Martos"
+                    Name = "Bruno Cano Martos"
                 });
         }
     }
