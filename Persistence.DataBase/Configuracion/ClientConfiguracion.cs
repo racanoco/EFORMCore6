@@ -13,6 +13,11 @@ namespace Persistence.DataBase.Configuracion
             entityTypeBuilder.Property(x => x.NIF).IsRequired().HasMaxLength(30);
             entityTypeBuilder.Property(x => x.Name).IsRequired().HasMaxLength(100);
 
+            // Relacion manual client con country de uno a muchos
+            entityTypeBuilder.HasOne(x => x.Country)
+                .WithMany(x => x.Clients)
+                .HasForeignKey(x => x.Country_Id);
+
             // Código para insertar datos de pruebas.
             entityTypeBuilder.HasData(
                 new Client
