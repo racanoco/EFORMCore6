@@ -1,6 +1,8 @@
-﻿using Common;
+﻿using BetterConsoleTables;
+using Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataBase;
+using Services;
 
 namespace Client.ConsoleApp
 {
@@ -11,8 +13,19 @@ namespace Client.ConsoleApp
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionBuilder.UseSqlServer(Parameter.ConnectionString);
 
-            var dbcontext = new ApplicationDbContext(optionBuilder.Options);
-            TestConnection(dbcontext);
+            var context = new ApplicationDbContext(optionBuilder.Options);
+
+            TestConnection(context);
+
+            var clientService = new ClientService(context);
+
+            using (context)
+            {
+                PrintClient(clientService);
+            }
+
+            Console.Read();
+            
         }
 
         static void TestConnection(ApplicationDbContext context)
@@ -36,6 +49,28 @@ namespace Client.ConsoleApp
                 Console.Read();               
             }
             
+        }
+
+        static void PrintClient(ClientService clientService)
+        {
+            try
+            {
+                var resultadoClients = clientService.GetAll();
+
+                var table = new Table("ClientId", "NIF", "Name", "Country");
+
+                foreach (var client in resultadoClients.Result)
+                {
+                    table.AddRow(client.ClientId, client.NIF, client.Name, client.Country?.Name ?? "-");
+                }
+
+                Console.Write(table.ToString());
+            }
+            catch (Exception)
+            {
+                
+            }
+
         }
     }
 }
