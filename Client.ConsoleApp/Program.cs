@@ -19,6 +19,7 @@ namespace Client.ConsoleApp
 
             var clientService = new ClientService(context);
             var productService = new ProductService(context);
+            var warehouseService = new WarehouseService(context);
 
             using (context)
             {
@@ -27,6 +28,7 @@ namespace Client.ConsoleApp
                 PrintClientById_SingleOrDefault(clientService, 3);
                 PrintClientAndCountry(clientService);
                 ProductsExistsByName(productService, "Producto 2");
+                PrintWarehousesAndProducts(warehouseService);
             }
 
             Console.Read();
@@ -134,6 +136,24 @@ namespace Client.ConsoleApp
         {
             var resultadoExistsByName = productService.ExistsByName(name);
             Console.Write(resultadoExistsByName.Result ? "Product exists" : "Product not exists");
+        }
+
+        static void PrintWarehousesAndProducts(WarehouseService warehouseService)
+        {
+            var resultadoWarehouses = warehouseService.GetAll();
+            var table = new Table("Warehouse", "Product", "Price");
+
+            foreach (var warehouse in resultadoWarehouses.Result)
+            {
+                table.AddRow(warehouse.Name);
+
+                foreach (var warehouseProduct in warehouse.WarehouseProductList)
+                {
+                    table.AddRow("", warehouseProduct.Product.Name, warehouseProduct.Product.Price);
+                }
+            }
+
+            Console.Write(table.ToString());
         }
         #endregion
     }
