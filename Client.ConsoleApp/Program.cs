@@ -22,6 +22,8 @@ namespace Client.ConsoleApp
             using (context)
             {
                 PrintClient(clientService);
+                PrintClientById_Single(clientService, 2);
+                PrintClientById_SingleOrDefault(clientService, 3);
             }
 
             Console.Read();
@@ -51,6 +53,9 @@ namespace Client.ConsoleApp
             
         }
 
+        #region CLIENT
+
+        #endregion
         static void PrintClient(ClientService clientService)
         {
             try
@@ -71,6 +76,34 @@ namespace Client.ConsoleApp
                 
             }
 
+        }
+
+        static void PrintClientById_Single(ClientService clientService, int id)
+        {
+            var resultadoClientById = clientService.GetById_Single(id);
+
+            var table = new Table("ClientId", "NIF", "Name", "Country");
+            
+            table.AddRow(resultadoClientById.Result.ClientId, resultadoClientById.Result.NIF, resultadoClientById.Result.Name, resultadoClientById.Result.Country?.Name ?? "-");
+            
+            Console.Write(table.ToString());
+           
+        }
+
+        static void PrintClientById_SingleOrDefault(ClientService clientService, int id)
+        {
+            var resultadoClientById = clientService.GetById_SingleOrDefault(id);
+
+            var table = new Table("ClientId", "NIF", "Name", "Country");
+
+            if (resultadoClientById.Result is not null)
+            {
+                table.AddRow(resultadoClientById.Result.ClientId, resultadoClientById.Result.NIF, resultadoClientById.Result.Name, resultadoClientById.Result.Country?.Name ?? "-");
+
+                Console.Write(table.ToString());
+            }
+
+            Console.Write("Valor NULL en el objeto Client");
         }
     }
 }
