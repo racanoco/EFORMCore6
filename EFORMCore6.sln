@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Common", "05.Common", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{32D145F8-002D-4AC3-AF92-7CF880627FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{28E3847F-BFF8-453A-ABB4-26165885AC67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{28E3847F-BFF8-453A-ABB4-26165885AC67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,6 +30,7 @@ namespace Client.ConsoleApp
                 ProductsExistsByName(productService, "Producto 2");
                 PrintWarehousesAndProducts(warehouseService);
                 PrintProductsByPagingTable(productService);
+                PrintWarehousesAndProductsComplex(warehouseService);
             }
 
             Console.Read();
@@ -185,6 +186,19 @@ namespace Client.ConsoleApp
 
                 page++;
             } while (true);
+        }
+
+        static void PrintWarehousesAndProductsComplex(WarehouseService warehouseService)
+        {
+            var warehouses = warehouseService.GetAllWithProducts();
+            var table = new Table("Warehouse", "Product", "Price");
+
+            foreach (var warehouse in warehouses)
+            {
+                table.AddRow(warehouse.WarehouseName, warehouse.ProductName, warehouse.ProductPrice);
+            }
+
+            Console.Write(table.ToString());
         }
         #endregion
     }

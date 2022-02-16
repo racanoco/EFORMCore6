@@ -27,6 +27,7 @@ namespace Persistence.DataBase
         public DbSet<Country> Countries { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<ProductExtraInformation> ProductsExtraInformation { get; set; }
+        public DbSet<WarehouseProduct> WarehouseProduct { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
