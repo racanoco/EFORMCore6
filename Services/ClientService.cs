@@ -69,6 +69,16 @@ namespace Services
 
             return clients;
         }
+
+        public async Task<IEnumerable<Client>> GetAllAndCountry()
+        {
+            var clients = await _context.Clients
+                .Include(x => x.Country)
+                .OrderByDescending(x => x.ClientId)
+                .ToListAsync();
+
+            return clients;
+        }
         #endregion
     }
 }

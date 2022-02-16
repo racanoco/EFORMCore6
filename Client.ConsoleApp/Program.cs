@@ -25,6 +25,7 @@ namespace Client.ConsoleApp
                 PrintClient(clientService);
                 PrintClientById_Single(clientService, 2);
                 PrintClientById_SingleOrDefault(clientService, 3);
+                PrintClientAndCountry(clientService);
                 ProductsExistsByName(productService, "Producto 2");
             }
 
@@ -74,6 +75,27 @@ namespace Client.ConsoleApp
             catch (Exception)
             {
                 
+            }
+        }
+
+        static void PrintClientAndCountry(ClientService clientService)
+        {
+            try
+            {
+                var resultadoClients = clientService.GetAllAndCountry();
+
+                var table = new Table("ClientId", "NIF", "Name", "Country");
+
+                foreach (var client in resultadoClients.Result)
+                {
+                    table.AddRow(client.ClientId, client.NIF, client.Name, client.Country?.Name ?? "-");
+                }
+
+                Console.Write(table.ToString());
+            }
+            catch (Exception)
+            {
+
             }
 
         }
