@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
 using Persistence.DataBase;
+using Services.QueryHelpers;
 
 namespace Services
 {
@@ -78,6 +79,24 @@ namespace Services
                 .ToListAsync();
 
             return clients;
+        }
+
+
+        public Client Get_GetBaseQuery(int id)
+        {
+            return _context.Clients.GetBaseQuery().SingleOrDefault(x => x.ClientId == id);
+        }
+
+        public Client GetFirstClient_GetBaseQuery()
+        {
+            return _context.Clients.GetBaseQuery().FirstOrDefault();
+        }
+        public IEnumerable<Client> GetAll_GetBaseQuery()
+        {
+            return _context.Clients
+                           .GetBaseQuery()
+                           .OrderByDescending(x => x.ClientId)
+                           .ToList();
         }
         #endregion
     }
