@@ -29,6 +29,7 @@ namespace Client.ConsoleApp
                 PrintClientAndCountry(clientService);
                 ProductsExistsByName(productService, "Producto 2");
                 PrintWarehousesAndProducts(warehouseService);
+                PrintProductsByPagingTable(productService);
             }
 
             Console.Read();
@@ -154,6 +155,36 @@ namespace Client.ConsoleApp
             }
 
             Console.Write(table.ToString());
+        }
+
+        static void PrintProductsByPagingTable(ProductService productService)
+        {
+            var page = 0;
+
+            do
+            {
+                var table = new Table("ProductId", "Name", "Price");
+                var products = productService.GetPaged(page, 2);
+
+                if (!products.Result.Any())
+                {
+                    Console.WriteLine("No hay más registros que visualizar ...");
+                    break;
+                }
+
+                foreach (var product in products.Result)
+                {
+                    table.AddRow(product.ProductId, product.Name, product.Price);
+                }
+
+                Console.Write(table.ToString());
+                Console.WriteLine("Presione enter para seguir buscando");
+                Console.ReadLine();
+
+                Console.Clear();
+
+                page++;
+            } while (true);
         }
         #endregion
     }

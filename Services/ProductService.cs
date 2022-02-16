@@ -66,6 +66,17 @@ namespace Services
             // Equivale al where exists() de sql
             return Task.FromResult(_context.Products.Any(x => x.Name == name));            
         }
+
+        public async Task<IEnumerable<Product>> GetPaged(int page, int take)
+        {
+            var products = await _context.Products
+                           .OrderBy(x => x.Name)
+                           .Skip(page * take)
+                           .Take(take)
+                           .ToListAsync();
+
+            return products;
+        }
         #endregion
     }
 }
