@@ -18,12 +18,14 @@ namespace Client.ConsoleApp
             TestConnection(context);
 
             var clientService = new ClientService(context);
+            var productService = new ProductService(context);
 
             using (context)
             {
                 PrintClient(clientService);
                 PrintClientById_Single(clientService, 2);
                 PrintClientById_SingleOrDefault(clientService, 3);
+                ProductsExistsByName(productService, "Producto 2");
             }
 
             Console.Read();
@@ -53,9 +55,7 @@ namespace Client.ConsoleApp
             
         }
 
-        #region CLIENT
-
-        #endregion
+        #region CLIENT      
         static void PrintClient(ClientService clientService)
         {
             try
@@ -105,5 +105,14 @@ namespace Client.ConsoleApp
 
             Console.Write("Valor NULL en el objeto Client");
         }
+        #endregion
+
+        #region PRODUCT
+        static void ProductsExistsByName(ProductService productService, string name)
+        {
+            var resultadoExistsByName = productService.ExistsByName(name);
+            Console.Write(resultadoExistsByName.Result ? "Product exists" : "Product not exists");
+        }
+        #endregion
     }
 }
