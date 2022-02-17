@@ -99,5 +99,75 @@ namespace Services
                            .ToList();
         }
         #endregion
+
+        #region POST
+        /// <summary>
+        /// Guarda una lista de un modelo
+        /// </summary>
+        /// <param name="clients"></param>
+        /// <returns></returns>
+        public void Create(List<Client> clients)
+        {
+             _context.AddRange(clients); // AddRange se utiliza para guardar una lista.
+             _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Guarda un modelo.
+        /// </summary>
+        /// <param name="client"></param>
+        public void Create(Client client)
+        {
+            _context.Add(client);
+            _context.SaveChanges();
+        }
+        #endregion
+
+        #region PUT
+
+        /// <summary>
+        /// Guarda los datos de un modelo.
+        /// </summary>
+        /// <param name="client"></param>
+        public void Update(Client client)
+        {
+            if (client is null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            // Obtenemos el registro de la bade de datos.
+            var originalEntry = _context.Clients.Single(x => x.ClientId == client.ClientId);
+
+            // Y Solo agregamos el valor que queremos actualizar.
+            originalEntry.Name = client.Name;
+
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Guarda una lista de un modelo
+        /// </summary>
+        /// <param name="clients"></param>
+        public void Update(List<Client> clients)
+        {
+            // Obtenemos los ids de la lista.
+            var ids = clients.Select(x => x.ClientId);
+
+            // Obtenemos todos los registros de los ids filtrados, No utilizar container si hay muchos Ids ya que se demora la select
+            var entries = _context.Clients.Where(x => ids.Contains(x.ClientId)).ToList();
+
+            // Actualizamos los registros.
+            foreach (var entry in entries)
+            {
+                var client = clients.Single(x => x.ClientId == entry.ClientId);
+                entry.Name = client.Name;
+            }
+
+            _context.SaveChanges();
+        }
+
+        
+        #endregion
     }
 }
