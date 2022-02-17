@@ -1,6 +1,8 @@
-﻿namespace Models
+﻿using Models.Helpers;
+
+namespace Models
 {
-    public class OrderDetail
+    public class OrderDetail : Audit
     {
         public Guid OrderDetailId { get; set; }
         public string OrderId { get; set; }
