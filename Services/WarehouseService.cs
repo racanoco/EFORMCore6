@@ -62,5 +62,46 @@ namespace Services
         //    ).ToList();
         //}
         #endregion
+
+        #region DELETE
+        //public void RemoveBulkSoftDelete()
+        //{
+        //    _context.Warehouses
+        //            .Where(x => x.WarehouseId >= 80)
+        //            .Update(x => new Warehouse
+        //            {
+        //                IsDeleted = true
+        //            });
+        //}
+
+        //public void RemoveBulk()
+        //{
+        //    _context.Warehouses
+        //            .Where(x => x.WarehouseId >= 80)
+        //            .Delete();
+        //}
+
+        public void Remove(List<int> ids)
+        {
+            var warehouses = ids.Select(x => new Warehouse
+            {
+                WarehouseId = x
+            }).ToList();
+
+            _context.RemoveRange(warehouses);
+
+            _context.SaveChanges();
+        }
+
+        //public void Remove(int id)
+        //{
+        //    var originalEntry = _context.Warehouses.Single(x => x.WarehouseId == id);
+        //    originalEntry.IsDeleted = true;
+
+        //    _context.Update(originalEntry);
+        //    _context.SaveChanges();
+        //}
+
+        #endregion
     }
 }
